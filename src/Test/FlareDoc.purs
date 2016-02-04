@@ -141,7 +141,7 @@ flareDoc' parentId docMap moduleName functionName x = do
         let parsed = (render <<< parseMd) comment
         return parsed
 
-      title = moduleName ++ "." ++ functionName
+      title = functionName
   FC.flareDoc' parentId title docString x
 
 -- | Add an interactive documentation entry. The `String` arguments specify the
