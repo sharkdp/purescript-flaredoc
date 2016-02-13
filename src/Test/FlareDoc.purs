@@ -7,8 +7,6 @@ module Test.FlareDoc
 
 import Prelude
 
-import Control.Monad.Eff (Eff())
-
 import Control.Monad.Aff (launchAff)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Class (liftEff)
@@ -32,10 +30,11 @@ import Text.Markdown.SlamDown.Parser (parseMd)
 
 import Network.HTTP.Affjax (get, AJAX)
 
-import Signal.Channel (Chan())
+import Signal.Channel (CHANNEL)
 
 import DOM (DOM())
 
+import Flare (ElementId)
 import Test.FlareCheck hiding (flareDoc, flareDoc')
 import Test.FlareCheck hiding (flareDoc, flareDoc') as FCE
 import Test.FlareCheck as FC
@@ -113,10 +112,9 @@ render (SlamDown list) = foldMap block list
     inline SoftBreak = " "
 
 -- | Parse a package description and run the interactive documentation.
-withPackage :: forall eff
-             . String
-            -> (Documentation -> Eff (ajax :: AJAX, console :: CONSOLE, chan :: Chan, dom :: DOM) Unit)
-            -> Eff (ajax :: AJAX, err :: EXCEPTION, console :: CONSOLE, chan :: Chan, dom :: DOM) Unit
+withPackage :: String
+            -> (Documentation -> Eff (ajax :: AJAX, console :: CONSOLE, channel :: CHANNEL, dom :: DOM) Unit)
+            -> Eff (ajax :: AJAX, err :: EXCEPTION, console :: CONSOLE, channel :: CHANNEL, dom :: DOM) Unit
 withPackage packageDescription run = launchAff do
   r <- get packageDescription
   case parseModuleJSON r.response of
@@ -132,7 +130,7 @@ flareDoc' :: forall t e. (Interactive t)
           -> String
           -> String
           -> t
-          -> Eff (chan :: Chan, dom :: DOM | e) Unit
+          -> Eff (channel :: CHANNEL, dom :: DOM | e) Unit
 flareDoc' parentId docMap moduleName functionName x = do
   let docString = do
         decls <- M.lookup moduleName docMap
@@ -151,5 +149,5 @@ flareDoc :: forall t e. (Interactive t)
          -> String
          -> String
          -> t
-         -> Eff (chan :: Chan, dom :: DOM | e) Unit
+         -> Eff (channel :: CHANNEL, dom :: DOM | e) Unit
 flareDoc = flareDoc' "flaredoc"
