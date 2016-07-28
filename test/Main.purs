@@ -18,7 +18,6 @@ main = do
         doc = flareDoc dict "Data.Array"
 
     doc "range" range
-    doc "replicate" (replicate :: Int -> String -> _)
     doc "uncons" (map UnconsRecord <<< uncons :: Array Int -> _)
     doc "group" (group :: Array Int -> _)
     doc "group'" (group' :: Array Int -> _)
@@ -39,7 +38,7 @@ main = do
     doc "insertAt" (insertAt :: _ -> String -> _)
     doc "deleteAt" (deleteAt :: _ -> Array String -> _)
     doc "updateAt" (updateAt :: _ -> String -> _)
-    doc "modifyAt" $ \i -> modifyAt i (* 10)
+    doc "modifyAt" $ \i -> modifyAt i (_ * 10)
     doc "reverse" (reverse :: Array Int -> _)
     doc "concatMap (\\n -> range 0 n)" (concatMap (\n -> range 0 n))
     doc "catMaybes" $ \x y z -> catMaybes [(x :: Maybe String), y, z]
