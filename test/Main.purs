@@ -18,6 +18,7 @@ main = do
         doc = flareDoc dict "Data.Array"
 
     doc "range" range
+    doc "replicate" (replicate :: Int -> String -> _)
     doc "uncons" (map UnconsRecord <<< uncons :: Array Int -> _)
     doc "group" (group :: Array Int -> _)
     doc "group'" (group' :: Array Int -> _)

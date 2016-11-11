@@ -1,8 +1,8 @@
 {
   "name": "purescript-flaredoc",
   "repository": {
-      "type": "git",
-      "url": "git://github.com/sharkdp/purescript-flaredoc.git"
+    "type": "git",
+    "url": "git://github.com/sharkdp/purescript-flaredoc.git"
   },
   "license": "MIT",
   "ignore": [
@@ -12,14 +12,10 @@
     "output"
   ],
   "dependencies": {
-    "purescript-console": "^1.0.0",
-    "purescript-flarecheck": "^1.0.0",
-    "purescript-affjax": "^1.0.0",
-    "purescript-argonaut": "^1.0.0",
-    "purescript-markdown": "^6.0.0"
-  },
-  "resolutions": {
-    "purescript-strings": "^1.0.0",
-    "purescript-maps": "^1.0.0"
+    "purescript-console": "^2.0.0",
+    "purescript-flarecheck": "^2.0.0",
+    "purescript-affjax": "^3.0.0",
+    "purescript-argonaut": "^2.0.0",
+    "purescript-markdown": "^8.0.0"
   }
 }
