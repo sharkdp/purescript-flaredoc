@@ -13,19 +13,17 @@ import Control.Monad.Eff.Class (liftEff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Exception (EXCEPTION())
 
-import Data.Array (findIndex, index)
-import Data.Either (Either(..), either, isLeft, isRight)
-import Data.Either (fromLeft, fromRight)
-import Data.Foldable (foldMap, fold)
+import Data.Either (Either(..), either)
+import Data.Foldable (foldMap)
 import Data.Maybe (Maybe(..))
 import Data.StrMap as M
 import Data.Tuple (Tuple(..))
 
 import Partial.Unsafe (unsafePartial)
 
-import Data.Argonaut (Json, toObject, class DecodeJson, decodeJson, (.?), (:=), (~>))
+import Data.Argonaut (Json, toObject, class DecodeJson, decodeJson)
 
-import Text.Markdown.SlamDown
+import Text.Markdown.SlamDown (Block(..), Inline(..), SlamDown, SlamDownP(..))
 import Text.Markdown.SlamDown.Parser (parseMd)
 
 import Network.HTTP.Affjax (get, AJAX)
@@ -35,7 +33,7 @@ import Signal.Channel (CHANNEL)
 import DOM (DOM())
 
 import Flare (ElementId)
-import Test.FlareCheck hiding (flareDoc, flareDoc')
+import Test.FlareCheck (class Interactive)
 import Test.FlareCheck hiding (flareDoc, flareDoc') as FCE
 import Test.FlareCheck as FC
 
