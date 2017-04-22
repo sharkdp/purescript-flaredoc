@@ -121,7 +121,7 @@ render (SlamDown list) = foldMap block list
 -- | Parse a package description and run the interactive documentation.
 withPackage :: String
             -> (Documentation -> Eff (ajax :: AJAX, console :: CONSOLE, channel :: CHANNEL, dom :: DOM) Unit)
-            -> Eff (ajax :: AJAX, err :: EXCEPTION, console :: CONSOLE, channel :: CHANNEL, dom :: DOM) Unit
+            -> Eff (ajax :: AJAX, exception :: EXCEPTION, console :: CONSOLE, channel :: CHANNEL, dom :: DOM) Unit
 withPackage packageDescription run = void $ launchAff do
   r <- get packageDescription
   case parseModuleJSON r.response of
