@@ -2,7 +2,7 @@ module Test.FlareDoc
   ( withPackage
   , flareDoc'
   , flareDoc
-  , module FCE
+  , module Sparkle
   ) where
 
 import Prelude
@@ -14,7 +14,7 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Exception (EXCEPTION())
 
 import Data.Either (Either(..), either)
-import Data.Foldable (foldMap)
+import Data.Foldable (foldMap, intercalate)
 import Data.Maybe (Maybe(..))
 import Data.StrMap as M
 import Data.Tuple (Tuple(..))
@@ -33,9 +33,8 @@ import Signal.Channel (CHANNEL)
 import DOM (DOM())
 
 import Flare (ElementId)
-import Test.FlareCheck (class Interactive)
-import Test.FlareCheck hiding (flareDoc, flareDoc') as FCE
-import Test.FlareCheck as FC
+import Sparkle (class Interactive)
+import Sparkle as Sparkle
 
 comb :: forall a. Maybe a -> String -> Either String a
 comb (Just x) _   = Right x
@@ -109,6 +108,7 @@ render (SlamDown list) = foldMap block list
     block :: forall a. Block a -> String
     block (Paragraph inl) = "<p>" <> foldMap inline inl <> "</p>"
     block (CodeBlock _ lines) = "<pre>" <> (foldMap (_ <> "\n") lines) <> "</pre>"
+    block (Lst _ xss) = "<ul><li>" <> intercalate "</li><li>" (map (foldMap block) xss) <> "</ul>"
 
     inline :: forall a. Inline a -> String
     inline (Str s)      = s
@@ -147,7 +147,7 @@ flareDoc' parentId docMap moduleName functionName x = do
           Right md -> pure $ unsafePartial (render md)
 
       title = functionName
-  FC.flareDoc' parentId title docString x
+  Sparkle.sparkleDoc' parentId title docString x
 
 -- | Add an interactive documentation entry. The `String` arguments specify the
 -- | module name and the function name, respectively.

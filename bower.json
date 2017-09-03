@@ -13,9 +13,9 @@
   ],
   "dependencies": {
     "purescript-console": "^3.0.0",
-    "purescript-flarecheck": "^3.0.0",
+    "purescript-sparkle": "^4.1.0",
     "purescript-affjax": "^4.0.0",
     "purescript-argonaut": "^3.0.0",
-    "purescript-markdown": "^10.0.0"
+    "purescript-markdown": "^11.0.0"
   }
 }
